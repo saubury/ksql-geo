@@ -1,0 +1,46 @@
+SET 'auto.offset.reset'='earliest';
+
+SET 'ksql.sink.partitions' = '1';
+
+
+-- phone stuff
+CREATE STREAM insurance_event_stream WITH (kafka_topic='phone_event_raw', value_format='avro');
+
+
+-- load postcodes
+CREATE STREAM post_code_raw_stream WITH (kafka_topic='post_code_raw', value_format='avro');
+
+CREATE STREAM post_code AS SELECT * from post_code_raw_stream PARTITION BY post_code;
+
+CREATE TABLE post_code_tab WITH (kafka_topic='POST_CODE', value_format='avro', key='post_code');
+
+
+
+CREATE STREAM insurance_event_with_location AS \
+SELECT * FROM insurance_event_stream iev \
+INNER JOIN post_code_tab pc ON iev.post_code = pc.post_code;
+
+-- first query
+SELECT  iev_customer_name, iev_phone_model, pc_post_code, pc_locality, pc_state, pc_long, pc_lat FROM insurance_event_with_location;
+
+
+-- load repair centres
+CREATE STREAM repair_raw_stream WITH (kafka_topic='repair_raw', value_format='avro');
+
+CREATE STREAM repair_centre AS SELECT * from repair_raw_stream PARTITION BY repair_state;
+
+CREATE TABLE repair_centre_tab WITH (kafka_topic='REPAIR_CENTRE', value_format='avro', key='repair_state');
+
+
+
+CREATE STREAM insurance_event_with_repairer AS \
+SELECT *, geo_distance(iel.pc_lat, iel.pc_long, rct.lat, rct.long, 'km') AS dist_to_repairer_km
+FROM insurance_event_with_location iel \
+INNER JOIN repair_centre_tab rct ON iel.pc_state = rct.repair_state;
+
+
+SELECT TIMESTAMPTOSTRING(rowtime, 'dd/MM HH:mm'), \
+iel_iev_customer_name || ' lost ' ||  iel_iev_phone_model || ' due to ' || iel_iev_event  || ' in ' ||  iel_pc_locality \
+|| ' (' || iel_pc_state || '), and is ' ||  CAST(round(dist_to_repairer_km) AS VARCHAR) || ' km from a service centre' \
+FROM insurance_event_with_repairer;
+
