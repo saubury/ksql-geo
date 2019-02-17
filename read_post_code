@@ -1,0 +1,17 @@
+#!/bin/bash
+
+kafka-avro-console-producer  \
+  --broker-list localhost:9092 \
+  --topic post_code_raw  \
+  --property value.schema='
+{
+  "type": "record",
+  "name": "myrecord",
+  "fields": [
+     {"name": "post_code",  "type": "string" }
+   , {"name": "locality",  "type": "string" }
+   , {"name": "state", "type": "string" }
+   , {"name": "long",  "type": "float" }
+   , {"name": "lat",  "type": "float" }
+  ]
+}'

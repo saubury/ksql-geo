@@ -1,0 +1,15 @@
+#!/bin/bash
+
+kafka-avro-console-producer  \
+  --broker-list localhost:9092 \
+  --topic repair_raw  \
+  --property value.schema='
+{
+  "type": "record",
+  "name": "myrecord",
+  "fields": [
+     {"name": "repair_state",  "type": "string" }
+   , {"name": "long",  "type": "float" }
+   , {"name": "lat",  "type": "float" }
+  ]
+}'
