@@ -7,11 +7,20 @@ docker-compose up -d
 ```
 
 ## Load the kafka topics
+Assuming you _don't_ have the Kafka tools installed locally
 ```
-cat repair.json | ./read_repair
-cat post_code.json | ./read_post_code
-cat phone_event.json | ./read_phone_event
+docker-compose exec schema-registry /scripts/populate_topics --docker
 ```
+
+
+## Load the kafka topics - outside container
+If you  _do_ have the Kafka tools installed locally (eg., `kafka-avro-console-producer`)
+```
+./scripts/populate_topics
+```
+
+
+
 
 
 ## KSQL
