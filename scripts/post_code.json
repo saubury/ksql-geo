@@ -1,3 +1,27 @@
 {"post_code":"2000", "locality":"Sydney", "state":"NSW", "long":151.25664, "lat":-33.85995}
 {"post_code":"2022", "locality":"Bondi Beach", "state":"NSW", "long":151.24504, "lat":-33.89640}
 {"post_code":"3000", "locality":"Melbourne", "state":"VIC", "long":144.95677, "lat":-37.81740}
+{"post_code":"2007", "locality":"Ultimo", "state":"NSW", "long":151.19665, "lat":-33.883189}
+{"post_code":"2019", "locality":"Botany", "state":"NSW", "long":151.207285, "lat":-33.946923}
+{"post_code":"2020", "locality":"Mascot", "state":"NSW", "long":151.176775, "lat":-33.936179}
+{"post_code":"2039", "locality":"Rozelle", "state":"NSW", "long":151.171915, "lat":-33.867187}
+{"post_code":"2040", "locality":"Leichhardt", "state":"NSW", "long":151.156819, "lat":-33.878774}
+{"post_code":"2086", "locality":"Frenchs Forest", "state":"NSW", "long":151.229211, "lat":-33.75185}
+{"post_code":"2153", "locality":"Bella Vista", "state":"NSW", "long":150.955942, "lat":-33.731651}
+{"post_code":"2251", "locality":"Green Point", "state":"NSW", "long":151.401999, "lat":-33.482209}
+{"post_code":"2330", "locality":"Fern Gully", "state":"NSW", "long":150.972137, "lat":-32.760486}
+{"post_code":"2830", "locality":"Dubbo", "state":"NSW", "long":148.657282, "lat":-32.24224}
+{"post_code":"2830", "locality":"Toongi", "state":"NSW", "long":148.657282, "lat":-32.24224}
+{"post_code":"2831", "locality":"Quambone", "state":"NSW", "long":146.615174, "lat":-31.927892}
+{"post_code":"3012", "locality":"Tottenham", "state":"VIC", "long":144.861162, "lat":-37.807135}
+{"post_code":"3066", "locality":"Collingwood", "state":"VIC", "long":144.986906, "lat":-37.804846}
+{"post_code":"3179", "locality":"Scoresby", "state":"VIC", "long":145.222634, "lat":-37.897137}
+{"post_code":"3352", "locality":"Gong Gong", "state":"VIC", "long":143.662387, "lat":-37.482132}
+{"post_code":"3621", "locality":"Tongala", "state":"VIC", "long":144.961183, "lat":-36.206055}
+{"post_code":"3936", "locality":"Safety Beach", "state":"VIC", "long":145.007626, "lat":-38.326447}
+{"post_code":"4000", "locality":"Brisbane", "state":"QLD", "long":153.022126, "lat":-27.468391}
+{"post_code":"4009", "locality":"Eagle Farm", "state":"QLD", "long":153.105247, "lat":-27.405747}
+{"post_code":"4036", "locality":"Bald Hills", "state":"QLD", "long":153.008731, "lat":-27.314022}
+{"post_code":"4174", "locality":"Doboy", "state":"QLD", "long":153.129424, "lat":-27.450089}
+{"post_code":"4306", "locality":"Karrabin", "state":"QLD", "long":152.725408, "lat":-27.480898}
+{"post_code":"4503", "locality":"Kallangur", "state":"QLD", "long":152.993187, "lat":-27.240638}
