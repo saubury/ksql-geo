@@ -11,37 +11,17 @@ usage() {
   Populate topics wiith test data and publish it to Kafka.
   Option                                   Description
   ------                                   -----------
-  -f | --file FILENAME                     Limit load to specified filename                  
   -d | --docker                            Run from within docker - change to appropriate hostnames and ports
+  -a | --all                               Limit all topics with demonstration data               
   "
   exit 0
 }
 
-while [ "$1" != "" ]; do
-  case $1 in
-    -f | --file )
-           shift
-           filename=$1
-           ;;
-    -d | --docker )
-           BROKER="kafka:29092"
-           SCHEMA="http://schema-registry:8081"
-           ;;
-    -h | --help )           
-           usage
-           exit
-           ;;
-    * )    
-           usage
-           exit 1
-  esac
-  shift
-done
 
 
 
 load_repair() {
-    cat repair.json | kafka-avro-console-producer  \
+    kafka-avro-console-producer  \
        --broker-list ${BROKER} \
        --topic repair_raw  \
        --property schema.registry.url=${SCHEMA} \
@@ -58,7 +38,7 @@ load_repair() {
 }
 
 load_post_code() {
-    cat post_code.json | kafka-avro-console-producer  \
+    kafka-avro-console-producer  \
        --broker-list ${BROKER} \
        --topic post_code_raw  \
        --property schema.registry.url=${SCHEMA} \
@@ -77,7 +57,7 @@ load_post_code() {
 }
 
 load_phone_event() {
-    cat phone_event.json | kafka-avro-console-producer  \
+    kafka-avro-console-producer  \
        --broker-list ${BROKER} \
        --topic phone_event_raw \
        --property schema.registry.url=${SCHEMA} \
@@ -94,6 +74,65 @@ load_phone_event() {
        }'
 }       
 
-load_repair
-load_post_code
-load_phone_event
+load_phone_event_int() {
+    kafka-avro-console-producer  \
+       --broker-list ${BROKER} \
+       --topic phone_event_raw \
+       --property schema.registry.url=${SCHEMA} \
+       --property value.schema='
+       {
+       "type": "record",
+       "name": "myrecord",
+       "fields": [
+       {"name": "customer_name",  "type": "string" }
+       , {"name": "phone_model", "type": "string" }
+       , {"name": "event", "type": "string" }
+       , {"name": "post_code", "type": "int" }
+       ]
+       }'
+} 
+
+load_all() {
+  cat repair.json | load_repair
+  cat post_code.json | load_post_code
+  cat phone_event.json | load_phone_event
+}
+
+while [ "$1" != "" ]; do
+  case $1 in
+    --docker )
+           BROKER="kafka:29092"
+           SCHEMA="http://schema-registry:8081"
+           ;;
+
+    -h | --help )           
+           usage
+           exit
+           ;;
+
+    --all)
+           load_all
+           ;; 
+
+    --load_repair)
+           load_repair
+           ;; 
+
+    --load_post_code)
+           load_post_code
+           ;; 
+
+    --load_phone_event)
+           load_phone_event
+           ;; 
+
+    --load_phone_event_int)
+           load_phone_event_int
+           ;; 
+
+    * )    
+           usage
+           exit 1
+  esac
+  shift
+done
